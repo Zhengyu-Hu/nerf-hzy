@@ -38,12 +38,19 @@ import matplotlib.pyplot as plt
 def get_rays(H, W, f, c2w):
     """
     计算每个像素的光线起点和方向。
+    并没有用到图像本身的像素值，只用到了与相机有关的参数
     """
     u, v = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
     u, v = u.ravel(), v.ravel()
 
     # 像素坐标 -> 相机坐标
     directions = np.stack([u - W / 2, H / 2 - v, -f * np.ones_like(u)], axis=1)
+
+    # 选取c2w的前3行和前3列，这是表示旋转的矩阵
+    # c2w: 3x3; directions: Nx3
+    # 3x3 * Nx3x1
+    # 相当于是N次3x3 * 3x1
+
     directions = (c2w[:3, :3] @ directions[..., None]).squeeze(-1)
     directions /= np.linalg.norm(directions, axis=1, keepdims=True)
 
@@ -86,7 +93,11 @@ if __name__ == '__main__':
     H,W = imgs.shape[:2]
 
     # 挖掘机的爪子应该是沿着y轴负方向的
+    '''
     for i in range(0,100,10):
         o,dirs = get_rays(H,W,K[0,0],poses[i])
-        plot_image_and_rays(imgs[i],o,dirs)
+        plot_image_and_rays(imgs[i],o,dirs)    
+    '''
+    o,dirs = get_rays(H,W,K[0,0],poses[10])
+    plot_rays(o,dirs)
 pass
