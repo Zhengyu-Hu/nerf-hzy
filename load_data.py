@@ -3,8 +3,7 @@ import imageio.v2 as imageio
 import numpy as np
 import matplotlib.pylab as plt
 
-def get_data():
-    splits = ['train','val','test']
+def get_data(splits = ['train','val','test']):
     basedir = os.path.join('data','lego')
     metas = {}
     for s in splits:
