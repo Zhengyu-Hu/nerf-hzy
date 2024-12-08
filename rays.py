@@ -12,6 +12,7 @@ def get_rays(H,W,f,c2w):
 
     # 像素坐标变成相机坐标
     # 默认原点(0,0)，故坐标即方向
+    # (160000,)(160000,)(160000,)进行堆叠，添加第1维度，故会变成(160000,3)
     directions = np.stack([u-W/2,H/2-v,-f*np.ones_like(u)],axis=1)
     # 选取c2w的前3行和前3列，这是表示旋转的矩阵
     # c2w: 3x3; directions: Nx3
