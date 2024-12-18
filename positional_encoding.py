@@ -57,6 +57,6 @@ def get_embedder(multires,i=0):
     }
     
     embedder = Embedder(**embed_kwargs)
-    embed = lambda x,embedder=embedder : embedder.embed(x)
-    return embed, embedder.outdim # 返回的是配置好的embed函数，和输出维度。并不是嵌入后的数据结果
+    embed_fn = lambda x,embedder=embedder : embedder.embed(x)
+    return embed_fn, embedder.outdim # 返回的是配置好的embed函数，和输出维度。并不是嵌入后的数据结果
 
