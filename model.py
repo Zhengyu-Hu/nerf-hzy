@@ -66,6 +66,7 @@ class NeRF(nn.Module):
                 h = F.relu(h)
             
             rgb = self.rgb_linear(h)
+            # 前三个是rgb, 最后一个是密度
             outputs = torch.cat([rgb,alpha],dim=-1)
         else:
             outputs = self.output_linear(h)

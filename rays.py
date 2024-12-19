@@ -75,7 +75,7 @@ def plot_image_and_rays(image, origins, directions, t=5.0, step=5000):
 if __name__ == '__main__':
     from load_data import get_data
     imgs,poses,K = get_data(splits=['test'])
-    H,W = imgs.shape[:2]
+    H,W = imgs.shape[1:3]
     # 挖掘机的爪子应该是沿着y轴负方向的
     fig = plt.figure()
     for i in range(0,200):
